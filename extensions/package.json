@@ -1,0 +1,7 @@
+{
+    "scripts": {
+      "build:chrome": "cp manifest.chrome.json manifest.json && npm run build",
+      "build:firefox": "cp manifest.firefox.json manifest.json && npm run build"
+    }
+  }
+  
