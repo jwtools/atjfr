@@ -18,7 +18,7 @@ jobs:
       - name: Build and Sign Extension
         run: |
           cd extension
-          web-ext sign --api-key=${{ secrets.AMO_JWT_ISSUER }} --api-secret=${{ secrets.AMO_JWT_SECRET }} --timeout 300
+          web-ext sign --api-key=${{ secrets.AMO_JWT_ISSUER }} --api-secret=${{ secrets.AMO_JWT_SECRET }} --timeout 300 --channel unlisted
 
       - name: Prepare GitHub Pages Deployment
         run: |

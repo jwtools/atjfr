@@ -20,7 +20,8 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "atjfr-ff@barraud.io"
-    }
+    },
+    "update_url": "https://jwtools.github.io/atjfr/updates.json"
   },
   "permissions": [
     "storage"
