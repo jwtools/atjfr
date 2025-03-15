@@ -1,0 +1,52 @@
+name: Sign & Deploy Firefox Add-on
+
+on:
+  push:
+    branches:
+      - main  # Déclenche à chaque push sur main
+  workflow_dispatch:  # Permet de lancer manuellement
+  schedule:
+    - cron: "0 0 * * *"  # Exécute tous les jours à minuit UTC
+
+jobs:
+  sign-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Zip extension
+        run: zip -r my-addon.xpi * -x "*.git*"
+
+      - name: Sign extension
+        run: |
+          npx web-ext sign --api-key="${{ secrets.AMO_JWT_ISSUER }}" --api-secret="${{ secrets.AMO_JWT_SECRET }}"
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+
+      - name: Upload signed extension to GitHub Pages
+        run: |
+          mkdir -p _site/downloads
+          mv web-ext-artifacts/*.xpi _site/downloads/my-addon.xpi
+
+      - name: Deploy Jekyll site to GitHub Pages
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Upload artifact to GitHub Pages
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./_site
+
+  deploy:
+    needs: sign-and-deploy
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
