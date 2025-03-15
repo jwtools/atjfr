@@ -1,0 +1,17 @@
+title: "Mon Extension Firefox"
+description: "Page d'installation et de téléchargement de mon extension Firefox."
+theme: minima  # (optionnel, change selon tes besoins)
+url: "https://jwtools.github.io"
+baseurl: "/atjfr" # Change selon ton dépôt
+
+plugins:
+  - jekyll-sitemap  # Ajoute un sitemap pour le référencement
+
+exclude:
+  - .github
+  - node_modules
+  - web-ext-artifacts
+  - scripts
+  - README.md
+  - Gemfile
+  - Gemfile.lock
