@@ -32,7 +32,7 @@ jobs:
       - name: Upload signed extension to GitHub Pages
         run: |
           mkdir -p _site/downloads
-          mv web-ext-artifacts/*.xpi _site/downloads/my-addon.xpi
+          mv web-ext-artifacts/*.xpi _site/downloads/atjfr.xpi
 
       - name: Deploy Jekyll site to GitHub Pages
         uses: actions/jekyll-build-pages@v1
